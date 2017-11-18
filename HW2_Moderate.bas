@@ -114,7 +114,7 @@ For i = 2 To Cells(Rows.Count, 1).End(xlUp).Row
             
                 Yearly_Change = close_value - open_value
         
-                Percet_Diff = Abs(open_value - close_value) / open_value
+                Percet_Diff = (open_value - close_value) / open_value
                 
                 Range("K" & Ticker_Row).Value = Percet_Diff
             
