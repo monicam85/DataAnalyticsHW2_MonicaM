@@ -17,11 +17,23 @@ Dim sYear As Long
 Dim Max_Year As Long
 Dim Min_Year As Long
 Dim ws As Worksheet
-
+    sTime = Timer
+    Elapsed = 0
       
 For Each ws In ActiveWorkbook.Worksheets
+
 'Set the woorksheet
 ws.Activate
+
+ActiveSheet.AutoFilterMode = False
+
+'Sort by Ticker
+Range("A1:G1").Select
+Selection.AutoFilter
+ActiveSheet.AutoFilter.Sort.SortFields.Add Key:=Range( _
+        "A1:A2"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption:= _
+        xlSortNormal
+
 'Clear output cells
 ActiveSheet.Range("I:Q").Clear
 
@@ -139,8 +151,10 @@ For i = 2 To Cells(Rows.Count, 1).End(xlUp).Row
 Next i
 
 Call Formatting
-
+Debug.Print ws.Name
 Next ws
+Elapsed = Timer - sTime
+Debug.Print Elapsed
 End Sub
 
 Sub Formatting()
@@ -163,3 +177,4 @@ Sub Formatting()
     
     Range("K:K").NumberFormat = "0.00%"
 End Sub
+
